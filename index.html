@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!--
+Author: Austin Kind
+Project: Matchmaker Web
+-->
+
+<head>
+<meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Matchmaker 2020</title>
+</head>
+<body style="background-color: lightgray;">
+<h1 style="text-align: center;">Matchmaker 2020</h1>
+<h1 style="text-align: center;">Kindustries, Inc.</h1>
+<h2 style="text-align: left;"><b>Instructions</b></h2>
+<p style="text-align: left;">
+    This program will determine whether or
+    not you and I are compatible. You will 
+    be shown 5 statements. For each statement, 
+    your task will be to answer a 5 if you 
+    strongly agree with the statement, a 4 if 
+    you agree with the statement, a 3 if you 
+    neither agree nor disagree with the 
+    statement, a 2 if you disagree with the 
+    statement, or a 1 if you strongly disagree 
+    with the statement. Once you are finished,
+    you will be given a score showing just how
+    compatible we are.
+</p>
+
+<!--
+Go to W3C to reference HTML option tabs
+-->
+
+<label><b>Hockey is the best sport!</b></label><br />
+<select id="q1">
+    <option value="5">Strongly Agree</option>
+    <option value="4">Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+
+<br /><br />
+
+<label><b>Country music is the greatest type of music ever made!</b></label><br />
+<select id="q2">
+    <option value="5">Strongly Agree</option>
+    <option value="4">Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+
+<br /><br />
+
+<label><b>Playing video games is the perfect way to spend your day!</b></label><br />
+<select id="q3">
+    <option value="5">Strongly Agree</option>
+    <option value="4">Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+
+<br /><br />
+
+<label><b>DC movies are way better than Marvel movies!</b></label><br />
+<select id="q4">
+    <option value="5">Strongly Agree</option>
+    <option value="4">Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+
+<br /><br />
+
+<label><b>Norway is the most beautiful country in the world!</b></label><br />
+<select id="q5">
+    <option value="5">Strongly Agree</option>
+    <option value="4">Agree</option>
+    <option value="3">Neither agree nor disagree</option>
+    <option value="2">Disagree</option>
+    <option value="1">Strongly Disagree</option>
+</select>
+
+<br /><br /><br />
+<button onclick="calculateCompatibility()">Calculate Total Compatibility</button>
+<p id="compatibility"></p>
+<script>
+console.log("Starting Matchmaker 2020...")
+
+function calculateCompatibility() {
+    console.log("calculateCompatibility()");
+
+    const DESIRED_RESPONSE = [
+        5, /* strongly agree */
+        1, /* strongly disagree */
+        5, /* strongly agree */
+        1, /* strongly disagree */
+        5, /* strongly agree */
+    ]
+    const MAX_SCORE = 25;
+
+    let question1response = document.getElementById("q1").selectedOptions[0].value;
+    let question2response = document.getElementById("q2").selectedOptions[0].value;
+    let question3response = document.getElementById("q3").selectedOptions[0].value;
+    let question4response = document.getElementById("q4").selectedOptions[0].value;
+    let question5response = document.getElementById("q5").selectedOptions[0].value;
+
+    console.log("Question 1 Answer:");
+    console.log(document.getElementById("q1").selectedOptions[0].text);
+    console.log(document.getElementById("q1").selectedOptions[0].value);
+    console.log(question1response);
+
+    console.log("Question 2 Answer:");
+    console.log(document.getElementById("q2").selectedOptions[0].text);
+    console.log(document.getElementById("q2").selectedOptions[0].value);
+    console.log(question2response);
+
+    console.log("Question 3 Answer:");
+    console.log(document.getElementById("q3").selectedOptions[0].text);
+    console.log(document.getElementById("q3").selectedOptions[0].value);
+    console.log(question3response);
+
+    console.log("Question 4 Answer:");
+    console.log(document.getElementById("q4").selectedOptions[0].text);
+    console.log(document.getElementById("q4").selectedOptions[0].value);
+    console.log(question4response);
+
+    console.log("Question 5 Answer:");
+    console.log(document.getElementById("q5").selectedOptions[0].text);
+    console.log(document.getElementById("q5").selectedOptions[0].value);
+    console.log(question5response);
+
+    let question1compatibility = 5 - Math.abs(question1response - DESIRED_RESPONSE[0]);
+    let question2compatibility = 5 - Math.abs(question2response - DESIRED_RESPONSE[1]);
+    let question3compatibility = 5 - Math.abs(question3response - DESIRED_RESPONSE[2]);
+    let question4compatibility = 5 - Math.abs(question4response - DESIRED_RESPONSE[3]);
+    let question5compatibility = 5 - Math.abs(question5response - DESIRED_RESPONSE[4]);
+
+    console.log("Question 1 Compatibility:" + question1compatibility);
+    console.log("Question 2 Compatibility:" + question2compatibility);
+    console.log("Question 3 Compatibility:" + question3compatibility);
+    console.log("Question 4 Compatibility:" + question4compatibility);
+    console.log("Question 5 Compatibility:" + question5compatibility);
+
+    let totalCompatibility = question1compatibility + question2compatibility + question3compatibility + 
+    question4compatibility + question5compatibility;
+
+    totalCompatibility *= 100/MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log("Total Compatibility:" + totalCompatibility);
+
+    let categories1 = "Wow! We are a perfect match! What time should I pick you up later?";
+    let categories2 = "So close! We were almost a good match... friends?";
+    let categories3 = "Sorry! It does not look like we are a good match... but it was nice getting to know you!";
+    let userOutput = "<b>Our total compatibility is: " + totalCompatibility + "%</b>";
+
+    if (totalCompatibility > 90) {
+        userOutput += "<br><b> " + categories1 + "</b>"
+    } else if (totalCompatibility > 70) {
+        userOutput += "<br><b> " + categories2 + "</b>"
+    } else {
+        userOutput += "<br><b> " + categories3 + "</b>"
+    }
+
+    document.getElementById("compatibility").innerHTML = userOutput;
+
+}
+</script>
+
+</body>
+</html>
